@@ -1,13 +1,17 @@
 package com.enviro.assessment.grad001.patrickmotaung.Enviro_Waste_Sorting.services;
 
+import com.enviro.assessment.grad001.patrickmotaung.Enviro_Waste_Sorting.exceptions.CategoryNotFoundException;
 import com.enviro.assessment.grad001.patrickmotaung.Enviro_Waste_Sorting.exceptions.GuidelineNotFoundException;
 import com.enviro.assessment.grad001.patrickmotaung.Enviro_Waste_Sorting.models.DisposalGuideline;
 import com.enviro.assessment.grad001.patrickmotaung.Enviro_Waste_Sorting.models.WasteCategory;
 import com.enviro.assessment.grad001.patrickmotaung.Enviro_Waste_Sorting.repositories.DisposalGuidelineRepo;
 import com.enviro.assessment.grad001.patrickmotaung.Enviro_Waste_Sorting.repositories.WasteCategoryRepo;
+import jakarta.transaction.Transactional;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class DisposalGuidelineService {
     private final DisposalGuidelineRepo disposalGuidelineRepo;
     private final WasteCategoryRepo wasteCategoryRepo;
@@ -32,9 +36,15 @@ public class DisposalGuidelineService {
                 .orElseThrow(()-> new GuidelineNotFoundException(id));
     }
 
-    public DisposalGuideline addDisposalGuideline(DisposalGuideline disposalGuideline){
+    @Transactional
+    public DisposalGuideline addDisposalGuideline(Long wasteCategoryId, DisposalGuideline disposalGuideline){
+        WasteCategory wasteCategory = wasteCategoryRepo.findById(wasteCategoryId)
+                .orElseThrow(() -> new CategoryNotFoundException(wasteCategoryId));
+
+        disposalGuideline.setWasteCategory(wasteCategory);
         return disposalGuidelineRepo.save(disposalGuideline);
     }
+
 
     public DisposalGuideline updateDisposalGuideline(Long id, DisposalGuideline disposalGuideline){
         DisposalGuideline updatedGuideline = findDisposalGuidelineById(id);

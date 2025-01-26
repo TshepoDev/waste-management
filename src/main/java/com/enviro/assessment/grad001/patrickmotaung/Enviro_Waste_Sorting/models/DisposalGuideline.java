@@ -27,7 +27,6 @@ public class DisposalGuideline {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "waste_category_id")
-    @NotNull
     private WasteCategory wasteCategory;
 
     public DisposalGuideline(){}

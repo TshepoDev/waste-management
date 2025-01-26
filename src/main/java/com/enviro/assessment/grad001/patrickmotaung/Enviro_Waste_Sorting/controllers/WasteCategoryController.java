@@ -38,7 +38,7 @@ public class WasteCategoryController {
     @PostMapping()
     public ResponseEntity<WasteCategory> addWasteCategory(@Valid @RequestBody WasteCategory wasteCategory){
         WasteCategory newWasteCategory = wasteCategoryService.addWasteCategory(wasteCategory);
-        return ResponseEntity.created(URI.create("/waste-categories/" + wasteCategory.getId())).body(wasteCategory);
+        return ResponseEntity.created(URI.create("/waste-categories/" + newWasteCategory.getId())).body(newWasteCategory);
     }
 
     @PutMapping("/{id}")

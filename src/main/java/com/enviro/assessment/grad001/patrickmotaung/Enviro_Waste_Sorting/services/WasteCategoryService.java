@@ -1,6 +1,6 @@
 package com.enviro.assessment.grad001.patrickmotaung.Enviro_Waste_Sorting.services;
 
-import com.enviro.assessment.grad001.patrickmotaung.Enviro_Waste_Sorting.exceptions.WasteCategoryNotFoundException;
+import com.enviro.assessment.grad001.patrickmotaung.Enviro_Waste_Sorting.exceptions.CategoryNotFoundException;
 import com.enviro.assessment.grad001.patrickmotaung.Enviro_Waste_Sorting.models.WasteCategory;
 import com.enviro.assessment.grad001.patrickmotaung.Enviro_Waste_Sorting.repositories.WasteCategoryRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,6 @@ import java.util.List;
 @Service
 public class WasteCategoryService {
 
-    @Autowired
     private final WasteCategoryRepo wasteCategoryRepo;
 
     public WasteCategoryService(WasteCategoryRepo wasteCategoryRepo){
@@ -24,7 +23,7 @@ public class WasteCategoryService {
 
     public WasteCategory findCategoryById(Long id){
         return wasteCategoryRepo.findById(id)
-                .orElseThrow(()->new WasteCategoryNotFoundException(id));
+                .orElseThrow(()->new CategoryNotFoundException(id));
     }
 
     public WasteCategory addWasteCategory(WasteCategory wasteCategory){
@@ -42,7 +41,7 @@ public class WasteCategoryService {
 
     public void deleteWasteCategory(Long id){
         if(!wasteCategoryRepo.existsById(id)){
-            throw new WasteCategoryNotFoundException(id);
+            throw new CategoryNotFoundException(id);
         }
         wasteCategoryRepo.deleteById(id);
     }
