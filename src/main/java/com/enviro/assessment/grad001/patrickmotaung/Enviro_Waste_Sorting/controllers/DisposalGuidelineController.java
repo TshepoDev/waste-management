@@ -30,22 +30,43 @@ public class DisposalGuidelineController {
         return ResponseEntity.ok(guidelines);
     }
 
+    @GetMapping("/category/{wasteCategoryId}")
+    public ResponseEntity<List<DisposalGuideline>> getDisposalGuidelinesByWasteCategory(
+            @PathVariable Long wasteCategoryId) {
+
+        List<DisposalGuideline> disposalGuidelines = disposalGuidelineService.getDisposalGuidelinesByWasteCategory(wasteCategoryId);
+
+        return ResponseEntity.ok(disposalGuidelines);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<DisposalGuideline> getDisposalGuidelineById(@PathVariable Long id){
         DisposalGuideline disposalGuideline = disposalGuidelineService.findDisposalGuidelineById(id);
         return ResponseEntity.ok(disposalGuideline);
     }
 
-    @PostMapping("/{id}")
-    public ResponseEntity<DisposalGuideline> addDisposalGuideline(@PathVariable Long id,@Valid @RequestBody DisposalGuideline disposalGuideline){
-        DisposalGuideline newGuideline = disposalGuidelineService.addDisposalGuideline(id,disposalGuideline);
+    @PostMapping("/category/{wasteCategoryId}")
+    public ResponseEntity<DisposalGuideline> addDisposalGuideline(@PathVariable Long wasteCategoryId,@Valid @RequestBody DisposalGuideline disposalGuideline){
+        DisposalGuideline newGuideline = disposalGuidelineService.addDisposalGuideline(wasteCategoryId,disposalGuideline);
         return ResponseEntity.created(URI.create("/disposal-guidelines/" + newGuideline.getId())).body(newGuideline);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<DisposalGuideline> updateDisposalGuideline(@PathVariable  Long id,@Valid @RequestBody DisposalGuideline disposalGuideline){
+    public ResponseEntity<DisposalGuideline> updateDisposalGuideline(
+            @PathVariable  Long id,@Valid @RequestBody DisposalGuideline disposalGuideline){
+
         DisposalGuideline updatedDisposalGuideline = disposalGuidelineService.updateDisposalGuideline(id, disposalGuideline);
+
         return ResponseEntity.ok(updatedDisposalGuideline);
+    }
+
+    @GetMapping("/category/{wasteCategoryId}/count")
+    public ResponseEntity<Long> countDisposalGuidelinesByCategory(
+            @PathVariable Long wasteCategoryId) {
+
+        Long count = disposalGuidelineService.countDisposalGuidelinesByCategory(wasteCategoryId);
+
+        return ResponseEntity.ok(count);
     }
 
     @DeleteMapping("/{id}")

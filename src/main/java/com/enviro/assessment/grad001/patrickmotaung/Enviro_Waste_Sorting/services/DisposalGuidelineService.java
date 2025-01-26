@@ -23,7 +23,7 @@ public class DisposalGuidelineService {
 
     public List<DisposalGuideline> getDisposalGuidelinesByWasteCategory(Long wasteCategoryId){
         WasteCategory wasteCategory = wasteCategoryRepo.findById(wasteCategoryId)
-                .orElseThrow(()-> new GuidelineNotFoundException(wasteCategoryId));
+                .orElseThrow(()-> new CategoryNotFoundException(wasteCategoryId));
         return disposalGuidelineRepo.findByWasteCategory(wasteCategory);
     }
 
@@ -43,6 +43,12 @@ public class DisposalGuidelineService {
 
         disposalGuideline.setWasteCategory(wasteCategory);
         return disposalGuidelineRepo.save(disposalGuideline);
+    }
+
+    public Long countDisposalGuidelinesByCategory(Long wasteCategoryId){
+        WasteCategory wasteCategory = wasteCategoryRepo.findById(wasteCategoryId)
+                .orElseThrow(() -> new CategoryNotFoundException(wasteCategoryId));
+        return disposalGuidelineRepo.countByWasteCategory(wasteCategory);
     }
 
 

@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface DisposalGuidelineRepo extends JpaRepository<DisposalGuideline, Long> {
     List<DisposalGuideline> findByWasteCategory(WasteCategory wasteCategory);
+    Long countByWasteCategory(WasteCategory wasteCategory);
 }
