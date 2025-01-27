@@ -34,7 +34,7 @@ public class DisposalGuidelineController {
     public ResponseEntity<List<DisposalGuideline>> getDisposalGuidelinesByWasteCategory(
             @PathVariable Long wasteCategoryId) {
 
-        List<DisposalGuideline> disposalGuidelines = disposalGuidelineService.getDisposalGuidelinesByWasteCategory(wasteCategoryId);
+        List<DisposalGuideline> disposalGuidelines = disposalGuidelineService.findDisposalGuidelinesByWasteCategory(wasteCategoryId);
 
         return ResponseEntity.ok(disposalGuidelines);
     }
@@ -47,7 +47,7 @@ public class DisposalGuidelineController {
 
     @PostMapping("/category/{wasteCategoryId}")
     public ResponseEntity<DisposalGuideline> addDisposalGuideline(@PathVariable Long wasteCategoryId,@Valid @RequestBody DisposalGuideline disposalGuideline){
-        DisposalGuideline newGuideline = disposalGuidelineService.addDisposalGuideline(wasteCategoryId,disposalGuideline);
+        DisposalGuideline newGuideline = disposalGuidelineService.createDisposalGuideline(wasteCategoryId,disposalGuideline);
         return ResponseEntity.created(URI.create("/disposal-guidelines/" + newGuideline.getId())).body(newGuideline);
     }
 

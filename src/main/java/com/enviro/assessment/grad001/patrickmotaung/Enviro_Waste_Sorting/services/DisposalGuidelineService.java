@@ -21,23 +21,9 @@ public class DisposalGuidelineService {
         this.wasteCategoryRepo = wasteCategoryRepo;
     }
 
-    public List<DisposalGuideline> getDisposalGuidelinesByWasteCategory(Long wasteCategoryId){
-        WasteCategory wasteCategory = wasteCategoryRepo.findById(wasteCategoryId)
-                .orElseThrow(()-> new CategoryNotFoundException(wasteCategoryId));
-        return disposalGuidelineRepo.findByWasteCategory(wasteCategory);
-    }
-
-    public List<DisposalGuideline> findAllDisposalGuidelines(){
-        return disposalGuidelineRepo.findAll();
-    }
-
-    public DisposalGuideline findDisposalGuidelineById(Long id){
-        return disposalGuidelineRepo.findById(id)
-                .orElseThrow(()-> new GuidelineNotFoundException(id));
-    }
-
+    //Creates a Disposal Guideline for a Waste Category
     @Transactional
-    public DisposalGuideline addDisposalGuideline(Long wasteCategoryId, DisposalGuideline disposalGuideline){
+    public DisposalGuideline createDisposalGuideline(Long wasteCategoryId, DisposalGuideline disposalGuideline){
         WasteCategory wasteCategory = wasteCategoryRepo.findById(wasteCategoryId)
                 .orElseThrow(() -> new CategoryNotFoundException(wasteCategoryId));
 
@@ -45,13 +31,25 @@ public class DisposalGuidelineService {
         return disposalGuidelineRepo.save(disposalGuideline);
     }
 
-    public Long countDisposalGuidelinesByCategory(Long wasteCategoryId){
-        WasteCategory wasteCategory = wasteCategoryRepo.findById(wasteCategoryId)
-                .orElseThrow(() -> new CategoryNotFoundException(wasteCategoryId));
-        return disposalGuidelineRepo.countByWasteCategory(wasteCategory);
+    //Retrieves all DisposalGuidelines by a specific id
+    public DisposalGuideline findDisposalGuidelineById(Long id){
+        return disposalGuidelineRepo.findById(id)
+                .orElseThrow(()-> new GuidelineNotFoundException(id));
     }
 
+    //Retrieves all DisposalGuidelines (potential improvements: use pagination)
+    public List<DisposalGuideline> findAllDisposalGuidelines(){
+        return disposalGuidelineRepo.findAll();
+    }
 
+    //Retrieves all DisposalGuidelines by a specified WasteCategory
+    public List<DisposalGuideline> findDisposalGuidelinesByWasteCategory(Long wasteCategoryId){
+        WasteCategory wasteCategory = wasteCategoryRepo.findById(wasteCategoryId)
+                .orElseThrow(()-> new CategoryNotFoundException(wasteCategoryId));
+        return disposalGuidelineRepo.findByWasteCategory(wasteCategory);
+    }
+
+    //Update Disposal Guideline
     public DisposalGuideline updateDisposalGuideline(Long id, DisposalGuideline disposalGuideline){
         DisposalGuideline updatedGuideline = findDisposalGuidelineById(id);
 
@@ -62,10 +60,23 @@ public class DisposalGuidelineService {
         return disposalGuidelineRepo.save(updatedGuideline);
     }
 
+    //Delete disposal guideline
     public void deleteDisposalGuideline(Long id){
         if(!disposalGuidelineRepo.existsById(id)){
             throw new GuidelineNotFoundException(id);
         }
         disposalGuidelineRepo.deleteById(id);
     }
+
+    //counts Disposal Guidelines for a specified Waste Category
+    public Long countDisposalGuidelinesByCategory(Long wasteCategoryId){
+        WasteCategory wasteCategory = wasteCategoryRepo.findById(wasteCategoryId)
+                .orElseThrow(() -> new CategoryNotFoundException(wasteCategoryId));
+        return disposalGuidelineRepo.countByWasteCategory(wasteCategory);
+    }
+
+
+
+
+
 }
