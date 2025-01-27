@@ -31,7 +31,7 @@ public class DisposalGuidelineService {
         return disposalGuidelineRepo.save(disposalGuideline);
     }
 
-    //Retrieves all DisposalGuidelines by a specific id
+    //Retrieves Disposal Guidelines by a specified id
     public DisposalGuideline findDisposalGuidelineById(Long id){
         return disposalGuidelineRepo.findById(id)
                 .orElseThrow(()-> new GuidelineNotFoundException(id));

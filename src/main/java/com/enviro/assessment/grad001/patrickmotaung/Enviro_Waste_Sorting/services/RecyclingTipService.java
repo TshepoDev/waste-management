@@ -1,10 +1,9 @@
 package com.enviro.assessment.grad001.patrickmotaung.Enviro_Waste_Sorting.services;
 
 import com.enviro.assessment.grad001.patrickmotaung.Enviro_Waste_Sorting.exceptions.CategoryNotFoundException;
-import com.enviro.assessment.grad001.patrickmotaung.Enviro_Waste_Sorting.exceptions.GuidelineNotFoundException;
-import com.enviro.assessment.grad001.patrickmotaung.Enviro_Waste_Sorting.models.DisposalGuideline;
+import com.enviro.assessment.grad001.patrickmotaung.Enviro_Waste_Sorting.exceptions.TipNotFoundException;
+import com.enviro.assessment.grad001.patrickmotaung.Enviro_Waste_Sorting.models.RecyclingTip;
 import com.enviro.assessment.grad001.patrickmotaung.Enviro_Waste_Sorting.models.WasteCategory;
-import com.enviro.assessment.grad001.patrickmotaung.Enviro_Waste_Sorting.repositories.DisposalGuidelineRepo;
 import com.enviro.assessment.grad001.patrickmotaung.Enviro_Waste_Sorting.repositories.RecyclingTipRepo;
 import com.enviro.assessment.grad001.patrickmotaung.Enviro_Waste_Sorting.repositories.WasteCategoryRepo;
 import jakarta.transaction.Transactional;
@@ -16,62 +15,63 @@ public class RecyclingTipService {
     private final WasteCategoryRepo wasteCategoryRepo;
 
     public RecyclingTipService(RecyclingTipRepo  recyclingTipRepo, WasteCategoryRepo wasteCategoryRepo){
-        this. recyclingTipRepo =  recyclingTipRepo;
+        this.recyclingTipRepo =  recyclingTipRepo;
         this.wasteCategoryRepo = wasteCategoryRepo;
     }
 
-    //Creates a Disposal Guideline for a specified Waste Category
+    //Creates a recycling tip for a specified waste category
     @Transactional
-    public DisposalGuideline createDisposalGuideline(Long wasteCategoryId, DisposalGuideline disposalGuideline){
+    public RecyclingTip createRecyclingTip(Long wasteCategoryId, RecyclingTip recyclingTip){
         WasteCategory wasteCategory = wasteCategoryRepo.findById(wasteCategoryId)
                 .orElseThrow(() -> new CategoryNotFoundException(wasteCategoryId));
 
-        disposalGuideline.setWasteCategory(wasteCategory);
-        return disposalGuidelineRepo.save(disposalGuideline);
+        recyclingTip.setWasteCategory(wasteCategory);
+        return recyclingTipRepo.save(recyclingTip);
     }
 
-    //Retrieves all DisposalGuidelines by a specific id
-    public DisposalGuideline findDisposalGuidelineById(Long id){
-        return disposalGuidelineRepo.findById(id)
-                .orElseThrow(()-> new GuidelineNotFoundException(id));
+    //Retrieves Recycling Tips for a specified id
+    public RecyclingTip findRecyclingTipById(Long id){
+        return recyclingTipRepo.findById(id)
+                .orElseThrow(()-> new TipNotFoundException(id));
     }
 
-    //Retrieves all DisposalGuidelines (potential improvements: use pagination)
-    public List<DisposalGuideline> findAllDisposalGuidelines(){
-        return disposalGuidelineRepo.findAll();
+    //Retrieves all Recycling Tips (potential improvements: use pagination)
+    public List<RecyclingTip> findAllRecyclingTips(){
+        return recyclingTipRepo.findAll();
     }
 
-    //Retrieves all DisposalGuidelines by a specified WasteCategory
-    public List<DisposalGuideline> findDisposalGuidelinesByWasteCategory(Long wasteCategoryId){
+    //Retrieves all Recycling Tips for a specified Waste Category
+    public List<RecyclingTip> findRecyclingTipsByWasteCategory(Long wasteCategoryId){
         WasteCategory wasteCategory = wasteCategoryRepo.findById(wasteCategoryId)
                 .orElseThrow(()-> new CategoryNotFoundException(wasteCategoryId));
-        return disposalGuidelineRepo.findByWasteCategory(wasteCategory);
+
+        return recyclingTipRepo.findByWasteCategory(wasteCategory);
     }
 
-    //Update Disposal Guideline
-    public DisposalGuideline updateDisposalGuideline(Long id, DisposalGuideline disposalGuideline){
-        DisposalGuideline updatedGuideline = findDisposalGuidelineById(id);
+    //Update a Recycling Tip
+    public RecyclingTip updateRecyclingTip(Long id, RecyclingTip recyclingTip){
+        RecyclingTip updatedRecyclingTip = findRecyclingTipById(id);
 
-        updatedGuideline.setTitle(disposalGuideline.getTitle());
-        updatedGuideline.setContent(disposalGuideline.getContent());
-        updatedGuideline.setWasteCategory(disposalGuideline.getWasteCategory());
+        updatedRecyclingTip.setTitle(recyclingTip.getTitle());
+        updatedRecyclingTip.setContent(recyclingTip.getContent());
+        updatedRecyclingTip.setWasteCategory(recyclingTip.getWasteCategory());
 
-        return disposalGuidelineRepo.save(updatedGuideline);
+        return recyclingTipRepo.save(updatedRecyclingTip);
     }
 
-    //Delete disposal guideline
-    public void deleteDisposalGuideline(Long id){
-        if(!disposalGuidelineRepo.existsById(id)){
-            throw new GuidelineNotFoundException(id);
+    //Delete recycling tip
+    public void deleteRecyclingTip(Long id){
+        if(!recyclingTipRepo.existsById(id)){
+            throw new TipNotFoundException(id);
         }
-        disposalGuidelineRepo.deleteById(id);
+        recyclingTipRepo.deleteById(id);
     }
 
-    //counts Disposal Guidelines for a specified Waste Category
-    public Long countDisposalGuidelinesByCategory(Long wasteCategoryId){
+    //counts recycling tips for a specified waste category
+    public Long countRecyclingTipsByCategory(Long wasteCategoryId){
         WasteCategory wasteCategory = wasteCategoryRepo.findById(wasteCategoryId)
                 .orElseThrow(() -> new CategoryNotFoundException(wasteCategoryId));
-        return disposalGuidelineRepo.countByWasteCategory(wasteCategory);
+        return recyclingTipRepo.countByWasteCategory(wasteCategory);
     }
 
 }
