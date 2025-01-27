@@ -23,6 +23,12 @@ public class DisposalGuidelineController {
         this.disposalGuidelineService = disposalGuidelineService;
     }
 
+    @PostMapping("/category/{wasteCategoryId}")
+    public ResponseEntity<DisposalGuideline> addDisposalGuideline(@PathVariable Long wasteCategoryId,@Valid @RequestBody DisposalGuideline disposalGuideline){
+        DisposalGuideline newGuideline = disposalGuidelineService.createDisposalGuideline(wasteCategoryId,disposalGuideline);
+        return ResponseEntity.created(URI.create("/disposal-guidelines/" + newGuideline.getId())).body(newGuideline);
+    }
+
 
     @GetMapping()
     public ResponseEntity<List<DisposalGuideline>> getAllDisposalGuidelines(){
@@ -45,12 +51,6 @@ public class DisposalGuidelineController {
         return ResponseEntity.ok(disposalGuideline);
     }
 
-    @PostMapping("/category/{wasteCategoryId}")
-    public ResponseEntity<DisposalGuideline> addDisposalGuideline(@PathVariable Long wasteCategoryId,@Valid @RequestBody DisposalGuideline disposalGuideline){
-        DisposalGuideline newGuideline = disposalGuidelineService.createDisposalGuideline(wasteCategoryId,disposalGuideline);
-        return ResponseEntity.created(URI.create("/disposal-guidelines/" + newGuideline.getId())).body(newGuideline);
-    }
-
     @PutMapping("/{id}")
     public ResponseEntity<DisposalGuideline> updateDisposalGuideline(
             @PathVariable  Long id,@Valid @RequestBody DisposalGuideline disposalGuideline){
@@ -60,6 +60,13 @@ public class DisposalGuidelineController {
         return ResponseEntity.ok(updatedDisposalGuideline);
     }
 
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteDisposalGuidelineById(@PathVariable Long id){
+        disposalGuidelineService.deleteDisposalGuideline(id);
+        return ResponseEntity.noContent().build();
+    }
+
     @GetMapping("/category/{wasteCategoryId}/count")
     public ResponseEntity<Long> countDisposalGuidelinesByCategory(
             @PathVariable Long wasteCategoryId) {
@@ -67,11 +74,5 @@ public class DisposalGuidelineController {
         Long count = disposalGuidelineService.countDisposalGuidelinesByCategory(wasteCategoryId);
 
         return ResponseEntity.ok(count);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteDisposalGuidelineById(@PathVariable Long id){
-        disposalGuidelineService.deleteDisposalGuideline(id);
-        return ResponseEntity.noContent().build();
     }
 }

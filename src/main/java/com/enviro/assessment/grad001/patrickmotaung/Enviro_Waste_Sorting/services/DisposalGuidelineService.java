@@ -53,7 +53,7 @@ public class DisposalGuidelineService {
     public DisposalGuideline updateDisposalGuideline(Long id, DisposalGuideline disposalGuideline){
         DisposalGuideline updatedGuideline = findDisposalGuidelineById(id);
 
-        updatedGuideline.setName(disposalGuideline.getName());
+        updatedGuideline.setTitle(disposalGuideline.getTitle());
         updatedGuideline.setContent(disposalGuideline.getContent());
         updatedGuideline.setWasteCategory(disposalGuideline.getWasteCategory());
 

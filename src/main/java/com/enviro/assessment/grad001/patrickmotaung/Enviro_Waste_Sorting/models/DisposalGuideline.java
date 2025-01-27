@@ -17,9 +17,9 @@ public class DisposalGuideline {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotBlank(message = "Name cannot be blank")
-    @Size(min=3, max=100, message = "Name must be between 3 to 100 characters")
-    private String name;
+    @NotBlank(message = "Title cannot be blank")
+    @Size(min=3, max=100, message = "Title must be between 3 to 100 characters")
+    private String title;
 
     @NotBlank(message = "Content cannot be blank")
     @Size(min=10, max=1000, message = "Content must be between 10 to 1000 characters")
@@ -31,8 +31,8 @@ public class DisposalGuideline {
 
     public DisposalGuideline(){}
 
-    public DisposalGuideline(String name, String content, WasteCategory wasteCategory){
-        this.name = content;
+    public DisposalGuideline(String title, String content, WasteCategory wasteCategory){
+        this.title = title;
         this.content = content;
         this.wasteCategory = wasteCategory;
     }
@@ -45,12 +45,12 @@ public class DisposalGuideline {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getContent() {

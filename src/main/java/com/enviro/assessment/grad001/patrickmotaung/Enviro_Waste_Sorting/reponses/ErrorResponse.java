@@ -9,7 +9,7 @@ public class ErrorResponse {
     private String message;
     private int status;
     private LocalDateTime timestamp;
-    private Map<String, String>  fieldErrors = Collections.emptyMap();
+    private Map<String, List<String>>  fieldErrors = Collections.emptyMap();
 
     public ErrorResponse(){}
 
@@ -18,7 +18,7 @@ public class ErrorResponse {
         this.status = status;
         this.timestamp = LocalDateTime.now();
     }
-    public ErrorResponse(String message, int status, Map<String, String> fieldErrors){
+    public ErrorResponse(String message, int status, Map<String, List<String>> fieldErrors){
         this.message = message;
         this.status = status;
         this.timestamp = LocalDateTime.now();
@@ -49,11 +49,11 @@ public class ErrorResponse {
         this.timestamp = timestamp;
     }
 
-    public Map<String, String> getFieldErrors() {
+    public Map<String, List<String>> getFieldErrors() {
         return fieldErrors;
     }
 
-    public void setFieldErrors(Map<String, String> fieldErrors) {
+    public void setFieldErrors(Map<String, List<String>> fieldErrors) {
         this.fieldErrors = fieldErrors;
     }
 

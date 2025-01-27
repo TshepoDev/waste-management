@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -36,15 +37,17 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-
     public ResponseEntity<ErrorResponse> handleValidationExceptions(MethodArgumentNotValidException ex) {
-        Map<String, String> fieldErrors = ex.getBindingResult().getFieldErrors().stream()
-                .collect(Collectors.toMap(
+        // Group field errors by field name and collect all messages
+        Map<String, List<String>> fieldErrors = ex.getBindingResult().getFieldErrors().stream()
+                .collect(Collectors.groupingBy(
                         FieldError::getField,
-                        error -> Objects.requireNonNullElse(error.getDefaultMessage(), "Invalid value")
+                        Collectors.mapping(FieldError::getDefaultMessage, Collectors.toList())
                 ));
 
+        // Prepare error response
         ErrorResponse errorResponse = new ErrorResponse("Validation failed", HttpStatus.BAD_REQUEST.value(), fieldErrors);
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
+
 }
