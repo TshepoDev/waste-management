@@ -7,9 +7,10 @@ import com.enviro.assessment.grad001.patrickmotaung.Enviro_Waste_Sorting.models.
 import com.enviro.assessment.grad001.patrickmotaung.Enviro_Waste_Sorting.repositories.RecyclingTipRepo;
 import com.enviro.assessment.grad001.patrickmotaung.Enviro_Waste_Sorting.repositories.WasteCategoryRepo;
 import jakarta.transaction.Transactional;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class RecyclingTipService {
     private final RecyclingTipRepo recyclingTipRepo;
     private final WasteCategoryRepo wasteCategoryRepo;
@@ -54,7 +55,6 @@ public class RecyclingTipService {
 
         updatedRecyclingTip.setTitle(recyclingTip.getTitle());
         updatedRecyclingTip.setContent(recyclingTip.getContent());
-        updatedRecyclingTip.setWasteCategory(recyclingTip.getWasteCategory());
 
         return recyclingTipRepo.save(updatedRecyclingTip);
     }

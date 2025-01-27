@@ -5,14 +5,18 @@ import com.enviro.assessment.grad001.patrickmotaung.Enviro_Waste_Sorting.models.
 import com.enviro.assessment.grad001.patrickmotaung.Enviro_Waste_Sorting.services.DisposalGuidelineService;
 import com.enviro.assessment.grad001.patrickmotaung.Enviro_Waste_Sorting.services.RecyclingTipService;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.List;
 
+@RestController
+@RequestMapping("/recycling-tips")
 public class RecyclingTipController {
     private final RecyclingTipService recyclingTipService;
+
 
     public RecyclingTipController(RecyclingTipService recyclingTipService){
         this.recyclingTipService = recyclingTipService;

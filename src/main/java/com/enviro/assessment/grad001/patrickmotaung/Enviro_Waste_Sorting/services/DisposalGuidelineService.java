@@ -55,7 +55,6 @@ public class DisposalGuidelineService {
 
         updatedGuideline.setTitle(disposalGuideline.getTitle());
         updatedGuideline.setContent(disposalGuideline.getContent());
-        updatedGuideline.setWasteCategory(disposalGuideline.getWasteCategory());
 
         return disposalGuidelineRepo.save(updatedGuideline);
     }
