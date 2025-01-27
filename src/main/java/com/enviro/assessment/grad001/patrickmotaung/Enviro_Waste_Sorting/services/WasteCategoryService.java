@@ -3,7 +3,6 @@ package com.enviro.assessment.grad001.patrickmotaung.Enviro_Waste_Sorting.servic
 import com.enviro.assessment.grad001.patrickmotaung.Enviro_Waste_Sorting.exceptions.CategoryNotFoundException;
 import com.enviro.assessment.grad001.patrickmotaung.Enviro_Waste_Sorting.models.WasteCategory;
 import com.enviro.assessment.grad001.patrickmotaung.Enviro_Waste_Sorting.repositories.WasteCategoryRepo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

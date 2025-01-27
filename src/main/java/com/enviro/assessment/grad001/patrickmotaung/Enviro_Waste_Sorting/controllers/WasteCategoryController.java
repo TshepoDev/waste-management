@@ -3,8 +3,6 @@ package com.enviro.assessment.grad001.patrickmotaung.Enviro_Waste_Sorting.contro
 import com.enviro.assessment.grad001.patrickmotaung.Enviro_Waste_Sorting.models.WasteCategory;
 import com.enviro.assessment.grad001.patrickmotaung.Enviro_Waste_Sorting.services.WasteCategoryService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +13,6 @@ import java.util.List;
 @RequestMapping("/waste-categories")
 public class WasteCategoryController {
 
-    @Autowired
     private final WasteCategoryService wasteCategoryService;
 
     public WasteCategoryController(WasteCategoryService wasteCategoryService){

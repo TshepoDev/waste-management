@@ -1,11 +1,8 @@
 package com.enviro.assessment.grad001.patrickmotaung.Enviro_Waste_Sorting.controllers;
 
 import com.enviro.assessment.grad001.patrickmotaung.Enviro_Waste_Sorting.models.DisposalGuideline;
-import com.enviro.assessment.grad001.patrickmotaung.Enviro_Waste_Sorting.models.WasteCategory;
 import com.enviro.assessment.grad001.patrickmotaung.Enviro_Waste_Sorting.services.DisposalGuidelineService;
-import com.enviro.assessment.grad001.patrickmotaung.Enviro_Waste_Sorting.services.WasteCategoryService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +13,7 @@ import java.util.List;
 @RequestMapping("/disposal-guidelines")
 
 public class DisposalGuidelineController {
-    @Autowired
+
     private final DisposalGuidelineService disposalGuidelineService;
 
     public DisposalGuidelineController(DisposalGuidelineService disposalGuidelineService){
