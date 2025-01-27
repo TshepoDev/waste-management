@@ -15,6 +15,7 @@ import lombok.Setter;
 public class DisposalGuideline {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(updatable = false, nullable = false, unique = true)
     private Long id;
 
     @NotBlank(message = "Title cannot be blank")

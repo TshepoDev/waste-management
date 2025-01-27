@@ -46,7 +46,7 @@ public class GlobalExceptionHandler {
                 ));
 
         // Prepare error response
-        ErrorResponse errorResponse = new ErrorResponse("Validation failed", HttpStatus.BAD_REQUEST.value(), fieldErrors);
+        ErrorResponse errorResponse = new ErrorResponse("Validation failed for one or more fields", HttpStatus.BAD_REQUEST.value(), fieldErrors);
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 

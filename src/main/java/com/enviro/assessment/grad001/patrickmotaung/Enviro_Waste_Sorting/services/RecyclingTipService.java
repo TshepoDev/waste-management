@@ -5,19 +5,18 @@ import com.enviro.assessment.grad001.patrickmotaung.Enviro_Waste_Sorting.excepti
 import com.enviro.assessment.grad001.patrickmotaung.Enviro_Waste_Sorting.models.DisposalGuideline;
 import com.enviro.assessment.grad001.patrickmotaung.Enviro_Waste_Sorting.models.WasteCategory;
 import com.enviro.assessment.grad001.patrickmotaung.Enviro_Waste_Sorting.repositories.DisposalGuidelineRepo;
+import com.enviro.assessment.grad001.patrickmotaung.Enviro_Waste_Sorting.repositories.RecyclingTipRepo;
 import com.enviro.assessment.grad001.patrickmotaung.Enviro_Waste_Sorting.repositories.WasteCategoryRepo;
 import jakarta.transaction.Transactional;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
-public class DisposalGuidelineService {
-    private final DisposalGuidelineRepo disposalGuidelineRepo;
+public class RecyclingTipService {
+    private final RecyclingTipRepo recyclingTipRepo;
     private final WasteCategoryRepo wasteCategoryRepo;
 
-    public DisposalGuidelineService(DisposalGuidelineRepo disposalGuidelineRepo, WasteCategoryRepo wasteCategoryRepo){
-        this.disposalGuidelineRepo = disposalGuidelineRepo;
+    public RecyclingTipService(RecyclingTipRepo  recyclingTipRepo, WasteCategoryRepo wasteCategoryRepo){
+        this. recyclingTipRepo =  recyclingTipRepo;
         this.wasteCategoryRepo = wasteCategoryRepo;
     }
 
@@ -74,6 +73,5 @@ public class DisposalGuidelineService {
                 .orElseThrow(() -> new CategoryNotFoundException(wasteCategoryId));
         return disposalGuidelineRepo.countByWasteCategory(wasteCategory);
     }
-
 
 }

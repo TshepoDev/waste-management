@@ -9,6 +9,7 @@ import jakarta.validation.constraints.Size;
 public class WasteCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(updatable = false, nullable = false, unique = true)
     private Long id;
 
     @NotBlank(message = "Name cannot be empty")
